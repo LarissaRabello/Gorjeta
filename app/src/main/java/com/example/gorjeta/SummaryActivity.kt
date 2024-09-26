@@ -23,7 +23,7 @@ class SummaryActivity : AppCompatActivity() {
 
         binding.tvTotalTable.text = totalTable.toString()
         binding.tvNumPeopleTable.text = numPeople.toString()
-        binding.tvPercentage.text = percentage.toString()
+        binding.tvPercentage.text = percentage.toString() + "%"
         binding.tvTotalAmount.text = totalAmount.toString()
 
         binding.btnRefresh.setOnClickListener {

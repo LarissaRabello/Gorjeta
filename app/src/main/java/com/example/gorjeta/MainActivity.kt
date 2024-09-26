@@ -21,45 +21,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-            var percentage: Int = 0
-
-            binding.rbOptionOne.setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked){
-                    percentage = 10
-                }
-            }
-            
-            binding.rbOptionTwo.setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked){
-                    percentage = 15
-                }
-            }
-        
-            binding.rbOptionThree.setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked){
-                    percentage = 20
-                }
-            }
-        
             binding.btnClean.setOnClickListener {
                 clean()
             }
 
             binding.btnDone.setOnClickListener {
                 val totalTableTemp = binding.tieTotal.text
-                val nPeopleTemp = binding.tieNumberOfPeople.text
+                val nPeopleTemp = binding.tieNumOfPeople.text
+                val percentageTemp = binding.tiePercentage.text
 
                 if(totalTableTemp?.isEmpty() == true ||
-                    nPeopleTemp?.isEmpty() == true){
+                    nPeopleTemp?.isEmpty() == true ||
+                    percentageTemp?.isEmpty() == true) {
                     Snackbar
                         .make(binding.tieTotal, "Preencha todos os campos", Snackbar.LENGTH_LONG)
                         .show()
                 }else{
-                    val totalTable: Float = binding.tieTotal.text.toString().toFloat()
-                    val nPeople: Int = binding.tieNumberOfPeople.text.toString().toInt()
+                    val totalTable: Float = totalTableTemp.toString().toFloat()
+                    val nPeople: Int = nPeopleTemp.toString().toInt()
+                    val percentage: Int = percentageTemp.toString().toInt()
 
                     val totalTemp = totalTable / nPeople
-                    val tips = totalTemp * percentage / 100
+                    val tips = totalTemp * percentageTemp.toString().toInt() / 100
                     val totalWithTips = totalTemp + tips
 
                     val intent = Intent(this, SummaryActivity::class.java)
@@ -77,9 +60,7 @@ class MainActivity : AppCompatActivity() {
 
         private fun clean(){
             binding.tieTotal.setText("")
-            binding.tieNumberOfPeople.setText("")
-            binding.rbOptionOne.isChecked = false
-            binding.rbOptionTwo.isChecked = false
-            binding.rbOptionThree.isChecked = false
+            binding.tieNumOfPeople.setText("")
+            binding.tiePercentage.setText("")
         }
     }
